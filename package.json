@@ -53,12 +53,12 @@
   "author": "Christian Gilan <cgilan@twilio.com>",
   "license": "MIT",
   "dependencies": {
+    "@types/markdown-it": "^13.0.0",
     "markdown-it": "^14.0.0",
     "markdown-it-task-lists": "^2.1.1"
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/markdown-it": "^13.0.0",
     "@typescript-eslint/eslint-plugin": "^7.9.0",
     "@typescript-eslint/parser": "^7.9.0",
     "eslint": "^8.57.0",
