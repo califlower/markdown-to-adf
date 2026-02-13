@@ -381,6 +381,13 @@ describe('markdownToAdf', () => {
 
       expect(result.content[0]?.type).toBe('blockQuote');
     });
+
+    test('comment preset downgrades block quote to paragraphs with warning', () => {
+      const result = markdownToAdfWithWarnings('> This is a quote', { preset: 'comment' });
+
+      expect(result.adf.content[0]?.type).toBe('paragraph');
+      expect(result.warnings.some((warning) => warning.type === 'lossy_conversion')).toBe(true);
+    });
   });
 
   describe('line breaks', () => {

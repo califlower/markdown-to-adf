@@ -128,7 +128,7 @@ export class BlockParser {
         }
         case 'blockquote_open': {
           const result = this.parseBlockQuote(tokens, i);
-          nodes.push(result.node);
+          nodes.push(...result.nodes);
           i = result.nextIndex;
           break;
         }
@@ -284,7 +284,7 @@ export class BlockParser {
         }
         case 'blockquote_open': {
           const result = this.parseBlockQuote(tokens, i);
-          blocks.push(result.node);
+          blocks.push(...result.nodes);
           i = result.nextIndex;
           break;
         }
@@ -386,9 +386,20 @@ export class BlockParser {
   private parseBlockQuote(
     tokens: readonly Token[],
     startIndex: number,
-  ): { node: ADFBlockNode; nextIndex: number } {
+  ): { nodes: ADFBlockNode[]; nextIndex: number } {
     const result = this.parseBlockTokens(tokens, startIndex + 1, 'blockquote_close');
-    return { node: blockQuote(result.nodes), nextIndex: result.nextIndex };
+    if (this.preset === 'comment') {
+      this.addWarning(
+        'lossy_conversion',
+        'Block quotes are not supported in comments; converting to paragraphs',
+        this.getLine(tokens[startIndex]!),
+      );
+      return {
+        nodes: result.nodes.length > 0 ? result.nodes : [paragraph()],
+        nextIndex: result.nextIndex,
+      };
+    }
+    return { nodes: [blockQuote(result.nodes)], nextIndex: result.nextIndex };
   }
 
   private parseTable(

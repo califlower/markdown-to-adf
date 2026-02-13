@@ -21,7 +21,7 @@ This library targets Jira Cloud ADF behavior and applies conservative conversion
 | Ordered lists    | `orderedList` | ✅                | ✅                | ✅      |                                             |
 | Task lists       | `taskList`    | ✅                | ✅                | ✅      | Inline-only in ADF                          |
 | Code blocks      | `codeBlock`   | ✅                | ✅                | ✅      |                                             |
-| Block quotes     | `blockQuote`  | ✅                | ✅                | ✅      |                                             |
+| Block quotes     | `blockQuote`  | Converted to para | ✅                | ✅      | `comment` converts to paragraphs + warning  |
 | Tables           | `table`       | ✅ (risky)        | ✅                | ✅      | `comment` warns by default                  |
 | Horizontal rules | —             | ❌                | ❌                | ❌      | Strict mode throws                          |
 

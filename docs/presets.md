@@ -5,6 +5,7 @@ Presets tune the converter for different Jira contexts.
 ## `comment`
 
 - Converts headings to bold paragraphs.
+- Converts block quotes to paragraphs (with warning).
 - Enables `warnOnRiskyNodes` by default.
 
 ## `task`

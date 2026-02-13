@@ -88,10 +88,11 @@ const adf = markdownToAdf(markdown, { preset: 'story' }); // For Story/Epic issu
 | Task lists    | `- [ ] item`         | Universal                         |
 | Tables        | `\| a \| b \|`       | Universal (risky in comments)\*\* |
 | Code blocks   | ` ```lang `          | Universal                         |
-| Block quotes  | `> text`             | Universal                         |
+| Block quotes  | `> text`             | Context-dependent\*\*\*           |
 
 \*See Heading Support section below.  
-\*\*Tables are valid in comments but can be inconsistent in some Jira views.
+\*\*Tables are valid in comments but can be inconsistent in some Jira views.  
+\*\*\*Block quotes are converted to paragraphs in comments (with a warning).
 
 ## Critical: Heading Support
 
@@ -108,6 +109,9 @@ With `strictMode: true`, incompatible headings throw instead of converting.
 
 Tables are valid in comments, but can be flaky in some Jira surfaces. The `comment` preset enables
 `warnOnRiskyNodes` by default to surface these cases.
+
+Block quotes are not supported in Jira comments. The `comment` preset converts them to paragraphs
+and emits a warning.
 
 ## API Reference
 
