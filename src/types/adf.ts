@@ -34,12 +34,7 @@ export type ADFBlockNode =
  * Inline nodes that can appear within block nodes.
  * These contain the actual content like text, links, emojis, etc.
  */
-export type ADFInlineNode =
-  | ADFText
-  | ADFHardBreak
-  | ADFInlineCard
-  | ADFMention
-  | ADFEmoji;
+export type ADFInlineNode = ADFText | ADFHardBreak | ADFInlineCard | ADFMention | ADFEmoji;
 
 /**
  * A paragraph node containing inline content.
@@ -290,7 +285,7 @@ export interface ADFTableRow {
  */
 export interface ADFTableHeader {
   readonly type: 'tableHeader';
-  readonly attrs?: Record<string, any>;
+  readonly attrs?: Record<string, unknown>;
   readonly content: ReadonlyArray<ADFParagraph>;
 }
 
@@ -299,6 +294,6 @@ export interface ADFTableHeader {
  */
 export interface ADFTableCell {
   readonly type: 'tableCell';
-  readonly attrs?: Record<string, any>;
+  readonly attrs?: Record<string, unknown>;
   readonly content: ReadonlyArray<ADFParagraph>;
 }

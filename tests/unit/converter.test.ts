@@ -3,7 +3,7 @@
  */
 
 import { describe, test, expect } from 'bun:test';
-import { markdownToAdf } from '../../src/index.js';
+import { markdownToAdf, markdownToAdfWithWarnings } from '../../src/index.js';
 
 describe('markdownToAdf', () => {
   describe('basic paragraphs', () => {
@@ -160,6 +160,15 @@ describe('markdownToAdf', () => {
       expect(content).toBeDefined();
       expect(content!.length).toBeGreaterThan(3);
     });
+
+    test('supports nested inline formatting', () => {
+      const result = markdownToAdf('***bold italic***');
+
+      const node = result.content[0]?.content?.[0];
+      expect(node?.type).toBe('text');
+      expect(node?.marks?.some((mark) => mark.type === 'strong')).toBe(true);
+      expect(node?.marks?.some((mark) => mark.type === 'em')).toBe(true);
+    });
   });
 
   describe('headings', () => {
@@ -250,6 +259,16 @@ describe('markdownToAdf', () => {
       expect(result.content[0]?.type).toBe('bulletList');
       expect(result.content[0]?.content).toHaveLength(2);
     });
+
+    test('supports nested lists', () => {
+      const markdown = '- Item 1\n  - Nested 1\n  - Nested 2';
+      const result = markdownToAdf(markdown);
+
+      const list = result.content[0];
+      expect(list?.type).toBe('bulletList');
+      const firstItem = list?.content[0];
+      expect(firstItem?.content.some((node) => node.type === 'bulletList')).toBe(true);
+    });
   });
 
   describe('task lists', () => {
@@ -303,8 +322,8 @@ describe('markdownToAdf', () => {
       const taskList = result.content[0];
       const taskItem = taskList?.content[0];
       expect(taskItem?.content.length).toBeGreaterThan(1);
-      expect(taskItem?.content.some(node => node.marks?.[0]?.type === 'strong')).toBe(true);
-      expect(taskItem?.content.some(node => node.marks?.[0]?.type === 'code')).toBe(true);
+      expect(taskItem?.content.some((node) => node.marks?.[0]?.type === 'strong')).toBe(true);
+      expect(taskItem?.content.some((node) => node.marks?.[0]?.type === 'code')).toBe(true);
     });
 
     test('distinguishes task lists from regular bullet lists', () => {
@@ -364,6 +383,14 @@ describe('markdownToAdf', () => {
     });
   });
 
+  describe('line breaks', () => {
+    test('preserves line breaks when enabled', () => {
+      const result = markdownToAdf('Line 1\nLine 2', { preserveLineBreaks: true });
+      const content = result.content[0]?.content;
+      expect(content?.some((node) => node.type === 'hardBreak')).toBe(true);
+    });
+  });
+
   describe('presets', () => {
     test('comment preset converts headings to bold', () => {
       const result = markdownToAdf('## Heading', { preset: 'comment' });
@@ -382,6 +409,42 @@ describe('markdownToAdf', () => {
       const result = markdownToAdf('## Heading', { preset: 'story' });
 
       expect(result.content[0]?.type).toBe('heading');
+    });
+  });
+
+  describe('warnings and strict mode', () => {
+    test('returns warnings when requested', () => {
+      const result = markdownToAdfWithWarnings('Hello world');
+      expect(result.adf.type).toBe('doc');
+      expect(result.warnings).toHaveLength(0);
+    });
+
+    test('warns on risky nodes when enabled', () => {
+      const markdown = `| Header | Value |
+|--------|-------|
+| A | B |`;
+      const result = markdownToAdfWithWarnings(markdown, { preset: 'comment' });
+      expect(result.warnings.some((warning) => warning.type === 'risky_feature')).toBe(true);
+    });
+
+    test('warns on lossy heading conversion', () => {
+      const result = markdownToAdfWithWarnings('## Heading', { preset: 'comment' });
+      expect(result.warnings.some((warning) => warning.type === 'lossy_conversion')).toBe(true);
+    });
+
+    test('strict mode throws on incompatible heading', () => {
+      expect(() => markdownToAdf('## Heading', { preset: 'comment', strictMode: true })).toThrow();
+    });
+
+    test('strict mode throws when heading exceeds max level', () => {
+      expect(() =>
+        markdownToAdf('#### Heading', {
+          preset: 'story',
+          useHeadings: true,
+          maxHeadingLevel: 2,
+          strictMode: true,
+        }),
+      ).toThrow();
     });
   });
 
@@ -423,10 +486,10 @@ describe('markdownToAdf', () => {
       // Check that cells have inline formatting
       const firstDataRow = tableNode?.content[1];
       const firstCell = firstDataRow?.content[0]?.content[0]?.content;
-      expect(firstCell?.some(node => node.marks?.[0]?.type === 'strong')).toBe(true);
+      expect(firstCell?.some((node) => node.marks?.[0]?.type === 'strong')).toBe(true);
 
       const secondCell = firstDataRow?.content[1]?.content[0]?.content;
-      expect(secondCell?.some(node => node.marks?.[0]?.type === 'code')).toBe(true);
+      expect(secondCell?.some((node) => node.marks?.[0]?.type === 'code')).toBe(true);
     });
   });
 
@@ -449,10 +512,10 @@ const x = 1;
       const result = markdownToAdf(markdown, { preset: 'story' });
 
       expect(result.content.length).toBeGreaterThan(4);
-      expect(result.content.some(node => node.type === 'heading')).toBe(true);
-      expect(result.content.some(node => node.type === 'bulletList')).toBe(true);
-      expect(result.content.some(node => node.type === 'codeBlock')).toBe(true);
-      expect(result.content.some(node => node.type === 'blockQuote')).toBe(true);
+      expect(result.content.some((node) => node.type === 'heading')).toBe(true);
+      expect(result.content.some((node) => node.type === 'bulletList')).toBe(true);
+      expect(result.content.some((node) => node.type === 'codeBlock')).toBe(true);
+      expect(result.content.some((node) => node.type === 'blockQuote')).toBe(true);
     });
   });
 });

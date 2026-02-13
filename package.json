@@ -1,6 +1,6 @@
 {
   "name": "markdown-to-adf",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Convert Markdown to Atlassian Document Format (ADF) with context-aware presets for Jira",
   "type": "module",
   "main": "./dist/index.js",
@@ -14,7 +14,10 @@
   "files": [
     "dist",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "CHANGELOG.md",
+    "docs",
+    "SECURITY.md"
   ],
   "scripts": {
     "build": "tsc",
@@ -23,7 +26,10 @@
     "test:watch": "bun test --watch",
     "test:coverage": "bun test --coverage",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run typecheck && npm run build && bun test"
+    "lint": "eslint \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepublishOnly": "npm run typecheck && npm run lint && npm run build && bun test"
   },
   "keywords": [
     "markdown",
@@ -38,8 +44,18 @@
   ],
   "author": "Christian Gilan <cgilan@twilio.com>",
   "license": "MIT",
+  "dependencies": {
+    "markdown-it": "^14.0.0",
+    "markdown-it-task-lists": "^2.1.1"
+  },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/markdown-it": "^13.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.9.0",
+    "@typescript-eslint/parser": "^7.9.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.2.5",
     "typescript": "^5.3.0"
   },
   "engines": {

@@ -24,8 +24,8 @@
  * @packageDocumentation
  */
 
-// Main converter function
-export { markdownToAdf } from './converter.js';
+// Main converter functions
+export { markdownToAdf, markdownToAdfWithWarnings } from './converter.js';
 
 // Type exports
 export type {

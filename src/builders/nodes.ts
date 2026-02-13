@@ -47,9 +47,7 @@ export function doc(content: readonly ADFBlockNode[]): ADFDocument {
  * @returns A paragraph node
  */
 export function paragraph(content: readonly ADFInlineNode[] = []): ADFParagraph {
-  return content.length > 0
-    ? { type: 'paragraph', content }
-    : { type: 'paragraph' };
+  return content.length > 0 ? { type: 'paragraph', content } : { type: 'paragraph' };
 }
 
 /**
@@ -59,7 +57,10 @@ export function paragraph(content: readonly ADFInlineNode[] = []): ADFParagraph 
  * @param content - Array of inline nodes
  * @returns A heading node
  */
-export function heading(level: 1 | 2 | 3 | 4 | 5 | 6, content: readonly ADFInlineNode[]): ADFHeading {
+export function heading(
+  level: 1 | 2 | 3 | 4 | 5 | 6,
+  content: readonly ADFInlineNode[],
+): ADFHeading {
   return {
     type: 'heading',
     attrs: { level },
@@ -99,7 +100,9 @@ export function orderedList(items: readonly ADFListItem[]): ADFOrderedList {
  * @param content - Array of paragraphs or nested lists
  * @returns A list item node
  */
-export function listItem(content: readonly (ADFParagraph | ADFBulletList | ADFOrderedList)[]): ADFListItem {
+export function listItem(
+  content: readonly (ADFParagraph | ADFBulletList | ADFOrderedList)[],
+): ADFListItem {
   return {
     type: 'listItem',
     content,
@@ -132,7 +135,7 @@ export function taskList(items: readonly ADFTaskItem[], localId?: string): ADFTa
 export function taskItem(
   content: readonly ADFInlineNode[],
   checked: boolean = false,
-  localId?: string
+  localId?: string,
 ): ADFTaskItem {
   return {
     type: 'taskItem',
@@ -204,9 +207,7 @@ export function rule(): ADFRule {
  * @returns A text node
  */
 export function text(text: string, marks?: readonly ADFMark[]): ADFText {
-  return marks && marks.length > 0
-    ? { type: 'text', text, marks }
-    : { type: 'text', text };
+  return marks && marks.length > 0 ? { type: 'text', text, marks } : { type: 'text', text };
 }
 
 /**
@@ -227,7 +228,7 @@ export function hardBreak(): ADFHardBreak {
  */
 export function table(
   rows: readonly ADFTableRow[],
-  options?: { isNumberColumnEnabled?: boolean; layout?: 'default' | 'wide' | 'full-width' }
+  options?: { isNumberColumnEnabled?: boolean; layout?: 'default' | 'wide' | 'full-width' },
 ): ADFTable {
   return options
     ? {

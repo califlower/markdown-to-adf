@@ -64,7 +64,5 @@ export function underline(): ADFUnderlineMark {
  * @returns A link mark
  */
 export function link(href: string, title?: string): ADFLinkMark {
-  return title
-    ? { type: 'link', attrs: { href, title } }
-    : { type: 'link', attrs: { href } };
+  return title ? { type: 'link', attrs: { href, title } } : { type: 'link', attrs: { href } };
 }

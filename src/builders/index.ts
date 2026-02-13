@@ -38,11 +38,4 @@ export {
   tableCell,
 } from './nodes.js';
 
-export {
-  strong,
-  em,
-  code,
-  strike,
-  underline,
-  link,
-} from './marks.js';
+export { strong, em, code, strike, underline, link } from './marks.js';

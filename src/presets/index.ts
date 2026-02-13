@@ -19,6 +19,7 @@ const PRESET_CONFIGS: Record<ContextPreset, Required<Omit<ConversionOptions, 'pr
     maxHeadingLevel: 6,
     preserveLineBreaks: false,
     strictMode: false,
+    warnOnRiskyNodes: false,
     defaultCodeLanguage: 'text',
   },
 
@@ -31,6 +32,7 @@ const PRESET_CONFIGS: Record<ContextPreset, Required<Omit<ConversionOptions, 'pr
     maxHeadingLevel: 6,
     preserveLineBreaks: false,
     strictMode: false,
+    warnOnRiskyNodes: true,
     defaultCodeLanguage: 'text',
   },
 
@@ -43,6 +45,7 @@ const PRESET_CONFIGS: Record<ContextPreset, Required<Omit<ConversionOptions, 'pr
     maxHeadingLevel: 6,
     preserveLineBreaks: false,
     strictMode: false,
+    warnOnRiskyNodes: false,
     defaultCodeLanguage: 'text',
   },
 
@@ -55,6 +58,7 @@ const PRESET_CONFIGS: Record<ContextPreset, Required<Omit<ConversionOptions, 'pr
     maxHeadingLevel: 6,
     preserveLineBreaks: false,
     strictMode: false,
+    warnOnRiskyNodes: false,
     defaultCodeLanguage: 'text',
   },
 };
@@ -79,7 +83,9 @@ export function resolvePreset(preset: ContextPreset): Required<Omit<ConversionOp
  *
  * @internal
  */
-export function resolveOptions(options: ConversionOptions = {}): Required<Omit<ConversionOptions, 'preset'>> {
+export function resolveOptions(
+  options: ConversionOptions = {},
+): Required<Omit<ConversionOptions, 'preset'>> {
   const preset = options.preset ?? 'default';
   const presetConfig = resolvePreset(preset);
 
@@ -88,6 +94,7 @@ export function resolveOptions(options: ConversionOptions = {}): Required<Omit<C
     maxHeadingLevel: options.maxHeadingLevel ?? presetConfig.maxHeadingLevel,
     preserveLineBreaks: options.preserveLineBreaks ?? presetConfig.preserveLineBreaks,
     strictMode: options.strictMode ?? presetConfig.strictMode,
+    warnOnRiskyNodes: options.warnOnRiskyNodes ?? presetConfig.warnOnRiskyNodes,
     defaultCodeLanguage: options.defaultCodeLanguage ?? presetConfig.defaultCodeLanguage,
   };
 }

@@ -2,6 +2,8 @@
  * Configuration options for markdown to ADF conversion.
  */
 
+import type { ADFDocument } from './adf.js';
+
 /**
  * Predefined context presets for common Jira use cases.
  *
@@ -81,12 +83,23 @@ export interface ConversionOptions {
    * Whether to throw errors on unsupported markdown syntax.
    *
    * @remarks
-   * When `true`, throws an error if markdown contains unsupported features.
+   * When `true`, throws an error if markdown contains features incompatible
+   * with the selected preset (e.g., headings in comments).
    * When `false`, silently ignores or converts unsupported features to plain text.
    *
    * @defaultValue false
    */
   strictMode?: boolean;
+
+  /**
+   * Whether to emit warnings for nodes that are technically valid but known to be flaky.
+   *
+   * @remarks
+   * Useful for Jira contexts where some nodes are inconsistently supported.
+   *
+   * @defaultValue false
+   */
+  warnOnRiskyNodes?: boolean;
 
   /**
    * Default language for code blocks without a language specifier.
@@ -108,7 +121,7 @@ export interface ConversionResult {
   /**
    * The generated ADF document.
    */
-  adf: unknown;
+  adf: ADFDocument;
 
   /**
    * Warnings generated during conversion (e.g., unsupported features).
@@ -123,7 +136,7 @@ export interface ConversionWarning {
   /**
    * The type of warning.
    */
-  type: 'unsupported_feature' | 'lossy_conversion' | 'invalid_syntax';
+  type: 'unsupported_feature' | 'lossy_conversion' | 'invalid_syntax' | 'risky_feature';
 
   /**
    * Human-readable warning message.
