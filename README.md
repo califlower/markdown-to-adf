@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/califlower/markdown-to-adf/actions/workflows/ci.yml/badge.svg)](https://github.com/califlower/markdown-to-adf/actions/workflows/ci.yml)
 [![npm version](https://img.shields.io/npm/v/markdown-to-adf.svg)](https://www.npmjs.com/package/markdown-to-adf)
-[![license](https://img.shields.io/npm/l/markdown-to-adf.svg)](https://github.com/califlower/markdown-to-adf/blob/main/LICENSE)
+[![license](https://img.shields.io/github/license/califlower/markdown-to-adf.svg)](https://github.com/califlower/markdown-to-adf/blob/main/LICENSE)
 
 Convert Markdown to Atlassian Document Format (ADF) with context-aware presets for Jira.
 

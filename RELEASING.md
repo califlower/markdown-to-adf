@@ -2,7 +2,8 @@
 
 ## Prerequisites
 
-- An `NPM_TOKEN` secret configured in the GitHub repo.
+- npm Trusted Publishing enabled for this repo (`.github/workflows/release.yml`).
+- GitHub Actions OIDC enabled (default) and Release workflow permissions set.
 
 ## Release Steps (standard-version)
 
@@ -14,4 +15,4 @@
    - `npm run release:major`
 3. Push commits and tags:
    - `git push origin main --follow-tags`
-4. GitHub Actions will run the release workflow and publish to npm.
+4. GitHub Actions will run the release workflow, create the GitHub release, and publish to npm.
