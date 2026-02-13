@@ -74,21 +74,21 @@ const adf = markdownToAdf(markdown, { preset: 'story' }); // For Story/Epic issu
 
 ## Supported Markdown
 
-| Feature       | Syntax               | Support             |
-| ------------- | -------------------- | ------------------- | --- | --- | --------------------------------- |
-| Paragraphs    | Plain text           | Universal           |
-| Bold          | `**text**`           | Universal           |
-| Italic        | `*text*` or `_text_` | Universal           |
-| Inline code   | `` `code` ``         | Universal           |
-| Strikethrough | `~~text~~`           | Universal           |
-| Links         | `[text](url)`        | Universal           |
-| Headings      | `## text`            | Context-dependent\* |
-| Bullet lists  | `- item`             | Universal           |
-| Ordered lists | `1. item`            | Universal           |
-| Task lists    | `- [ ] item`         | Universal           |
-| Tables        | `                    | a                   | b   | `   | Universal (risky in comments)\*\* |
-| Code blocks   | ` ```lang `          | Universal           |
-| Block quotes  | `> text`             | Universal           |
+| Feature       | Syntax               | Support                           |
+| ------------- | -------------------- | --------------------------------- |
+| Paragraphs    | Plain text           | Universal                         |
+| Bold          | `**text**`           | Universal                         |
+| Italic        | `*text*` or `_text_` | Universal                         |
+| Inline code   | `` `code` ``         | Universal                         |
+| Strikethrough | `~~text~~`           | Universal                         |
+| Links         | `[text](url)`        | Universal                         |
+| Headings      | `## text`            | Context-dependent\*               |
+| Bullet lists  | `- item`             | Universal                         |
+| Ordered lists | `1. item`            | Universal                         |
+| Task lists    | `- [ ] item`         | Universal                         |
+| Tables        | `\| a \| b \|`       | Universal (risky in comments)\*\* |
+| Code blocks   | ` ```lang `          | Universal                         |
+| Block quotes  | `> text`             | Universal                         |
 
 \*See Heading Support section below.  
 \*\*Tables are valid in comments but can be inconsistent in some Jira views.
