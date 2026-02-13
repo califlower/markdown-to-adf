@@ -1,6 +1,6 @@
 {
   "name": "markdown-to-adf",
-  "version": "0.2.18",
+  "version": "0.2.19",
   "description": "Convert Markdown to Atlassian Document Format (ADF) with context-aware presets for Jira",
   "type": "module",
   "main": "./dist/index.js",
