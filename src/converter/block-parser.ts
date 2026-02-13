@@ -462,7 +462,7 @@ export class BlockParser {
   private trimLeadingSpace(nodes: readonly ADFInlineNode[]): ADFInlineNode[] {
     if (nodes.length === 0) return [...nodes];
     const first = nodes[0];
-    if (first.type !== 'text') return [...nodes];
+    if (!first || first.type !== 'text') return [...nodes];
     if (!first.text.startsWith(' ')) return [...nodes];
     const trimmed = first.text.replace(/^\s+/, '');
     if (trimmed === '') {
