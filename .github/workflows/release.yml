@@ -29,4 +29,4 @@ jobs:
       - uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
-      - run: NPM_CONFIG_USERCONFIG="$RUNNER_TEMP/npmrc" npm publish --access public --provenance
+      - run: NPM_CONFIG_USERCONFIG="$RUNNER_TEMP/npmrc" NODE_AUTH_TOKEN="" npm publish --access public --provenance
