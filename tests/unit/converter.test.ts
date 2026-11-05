@@ -102,6 +102,33 @@ describe('markdownToAdf', () => {
       });
     });
 
+    test('drops marks ADF does not allow with inline code', () => {
+      const result = markdownToAdf('**bold `code`**');
+
+      expect(result.content[0]).toEqual({
+        type: 'paragraph',
+        content: [
+          { type: 'text', text: 'bold ', marks: [{ type: 'strong' }] },
+          { type: 'text', text: 'code', marks: [{ type: 'code' }] },
+        ],
+      });
+    });
+
+    test('keeps link marks on inline code', () => {
+      const result = markdownToAdf('[`code`](https://example.com)');
+
+      expect(result.content[0]).toEqual({
+        type: 'paragraph',
+        content: [
+          {
+            type: 'text',
+            text: 'code',
+            marks: [{ type: 'link', attrs: { href: 'https://example.com' } }, { type: 'code' }],
+          },
+        ],
+      });
+    });
+
     test('converts strikethrough', () => {
       const result = markdownToAdf('~~strike text~~');
 

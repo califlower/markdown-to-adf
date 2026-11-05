@@ -49,7 +49,7 @@ export function parseInlineTokens(
         break;
       }
       case 'code_inline': {
-        pushText(token.content, [...marks, codeMark()]);
+        pushText(token.content, [...marks.filter(isCodeCompatible), codeMark()]);
         break;
       }
       case 'softbreak': {
@@ -137,6 +137,11 @@ function popMark(marks: ADFMark[], type: ADFMark['type']): void {
       return;
     }
   }
+}
+
+// ADF only allows the code mark alongside link.
+function isCodeCompatible(mark: ADFMark): boolean {
+  return mark.type === 'link';
 }
 
 function areMarksEqual(left: readonly ADFMark[] | undefined, right: readonly ADFMark[]): boolean {
