@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.21](https://github.com/califlower/markdown-to-adf/compare/v0.2.20...v0.2.21) (2026-11-05)
+
+
+### Bug Fixes
+
+* drop marks ADF disallows on inline code ([a0b3bee](https://github.com/califlower/markdown-to-adf/commit/a0b3beede4ff803cd0968839855be6db5c5e5c16))
+
 ### [0.2.20](https://github.com/califlower/markdown-to-adf/compare/v0.2.19...v0.2.20) (2026-02-13)
 
 ### [0.2.19](https://github.com/califlower/markdown-to-adf/compare/v0.2.18...v0.2.19) (2026-02-13)
