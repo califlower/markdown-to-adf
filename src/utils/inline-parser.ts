@@ -10,6 +10,7 @@ import { strong, em, code as codeMark, strike, link } from '../builders/marks.js
 interface InlineParseOptions {
   preserveLineBreaks: boolean;
   stripTaskCheckbox?: boolean;
+  renderTaskCheckbox?: boolean;
 }
 
 interface InlineParseResult {
@@ -103,10 +104,14 @@ export function parseInlineTokens(
         break;
       }
       case 'html_inline': {
-        if (options.stripTaskCheckbox) {
+        if (options.stripTaskCheckbox || options.renderTaskCheckbox) {
           const checkbox = parseTaskCheckbox(token.content);
           if (checkbox.isCheckbox) {
-            if (checkbox.checked) taskChecked = true;
+            if (options.stripTaskCheckbox) {
+              if (checkbox.checked) taskChecked = true;
+            } else {
+              pushText(checkbox.checked ? '☑' : '☐', marks.slice());
+            }
             break;
           }
         }

@@ -6,6 +6,7 @@ Presets tune the converter for different Jira contexts.
 
 - Converts headings to bold paragraphs.
 - Converts block quotes to paragraphs (with warning).
+- Converts task lists to bullet lists with `☐`/`☑` prefixes, since comments reject `taskList`.
 - Enables `warnOnRiskyNodes` by default.
 
 ## `task`

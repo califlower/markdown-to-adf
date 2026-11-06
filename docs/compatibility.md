@@ -13,17 +13,17 @@ This library targets Jira Cloud ADF behavior and applies conservative conversion
 
 ## Node Compatibility
 
-| Markdown feature | ADF output    | `comment`         | `task`            | `story` | Notes                                       |
-| ---------------- | ------------- | ----------------- | ----------------- | ------- | ------------------------------------------- |
-| Headings         | `heading`     | Converted to bold | Converted to bold | Allowed | Strict mode throws for incompatible presets |
-| Paragraphs       | `paragraph`   | ✅                | ✅                | ✅      |                                             |
-| Bullet lists     | `bulletList`  | ✅                | ✅                | ✅      |                                             |
-| Ordered lists    | `orderedList` | ✅                | ✅                | ✅      |                                             |
-| Task lists       | `taskList`    | ✅                | ✅                | ✅      | Inline-only in ADF                          |
-| Code blocks      | `codeBlock`   | ✅                | ✅                | ✅      |                                             |
-| Block quotes     | `blockQuote`  | Converted to para | ✅                | ✅      | `comment` converts to paragraphs + warning  |
-| Tables           | `table`       | ✅ (risky)        | ✅                | ✅      | `comment` warns by default                  |
-| Horizontal rules | —             | ❌                | ❌                | ❌      | Strict mode throws                          |
+| Markdown feature | ADF output    | `comment`            | `task`            | `story` | Notes                                       |
+| ---------------- | ------------- | -------------------- | ----------------- | ------- | ------------------------------------------- |
+| Headings         | `heading`     | Converted to bold    | Converted to bold | Allowed | Strict mode throws for incompatible presets |
+| Paragraphs       | `paragraph`   | ✅                   | ✅                | ✅      |                                             |
+| Bullet lists     | `bulletList`  | ✅                   | ✅                | ✅      |                                             |
+| Ordered lists    | `orderedList` | ✅                   | ✅                | ✅      |                                             |
+| Task lists       | `taskList`    | Converted to bullets | ✅                | ✅      | `comment` uses `☐`/`☑` text in bullet lists |
+| Code blocks      | `codeBlock`   | ✅                   | ✅                | ✅      |                                             |
+| Block quotes     | `blockQuote`  | Converted to para    | ✅                | ✅      | `comment` converts to paragraphs + warning  |
+| Tables           | `table`       | ✅ (risky)           | ✅                | ✅      | `comment` warns by default                  |
+| Horizontal rules | —             | ❌                   | ❌                | ❌      | Strict mode throws                          |
 
 ## Risky Nodes
 

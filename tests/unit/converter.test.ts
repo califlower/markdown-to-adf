@@ -396,6 +396,20 @@ describe('markdownToAdf', () => {
     });
   });
 
+  describe('comment preset task lists', () => {
+    test('converts task items to bullets with checkbox text', () => {
+      const result = markdownToAdf('- [ ] todo\n- [x] done\n- plain', { preset: 'comment' });
+
+      expect(result.content).toHaveLength(1);
+      const list = result.content[0];
+      expect(list?.type).toBe('bulletList');
+      const texts = list?.content.map((item) => JSON.stringify(item)) ?? [];
+      expect(texts[0]).toContain('"text":"☐ todo"');
+      expect(texts[1]).toContain('"text":"☑ done"');
+      expect(texts[2]).toContain('"text":"plain"');
+    });
+  });
+
   describe('block quotes', () => {
     test('converts simple block quote', () => {
       const result = markdownToAdf('> This is a quote');

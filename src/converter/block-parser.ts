@@ -179,6 +179,11 @@ export class BlockParser {
     return { nodes, nextIndex: i };
   }
 
+  // Jira comments reject taskList nodes, so checkboxes become ☐/☑ text in plain bullets
+  private get rendersTasksAsText(): boolean {
+    return this.preset === 'comment';
+  }
+
   private parseCodeBlockToken(token: Token): ADFBlockNode {
     const language = token.info?.trim() || this.options.defaultCodeLanguage;
     const content = token.content.replace(/\n$/, '');
@@ -207,7 +212,8 @@ export class BlockParser {
 
     while (i < tokens.length && tokens[i]!.type !== closeType) {
       if (tokens[i]!.type === 'list_item_open') {
-        const isTaskItem = listType === 'bullet' && this.isTaskListItem(tokens, i);
+        const isTaskItem =
+          listType === 'bullet' && !this.rendersTasksAsText && this.isTaskListItem(tokens, i);
         const segmentType: Segment['type'] = isTaskItem ? 'task' : 'regular';
 
         if (!currentSegment || currentSegment.type !== segmentType) {
@@ -258,6 +264,7 @@ export class BlockParser {
           const inlineResult = parseInlineTokens(inlineToken?.children, {
             preserveLineBreaks: this.options.preserveLineBreaks,
             stripTaskCheckbox: asTask,
+            renderTaskCheckbox: this.rendersTasksAsText,
           });
           if (asTask && taskContent.length === 0) {
             taskContent = this.trimLeadingSpace(inlineResult.nodes);
@@ -305,6 +312,7 @@ export class BlockParser {
           const inlineResult = parseInlineTokens(token.children, {
             preserveLineBreaks: this.options.preserveLineBreaks,
             stripTaskCheckbox: asTask,
+            renderTaskCheckbox: this.rendersTasksAsText,
           });
           if (asTask && taskContent.length === 0) {
             taskContent = this.trimLeadingSpace(inlineResult.nodes);
