@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.22](https://github.com/califlower/markdown-to-adf/compare/v0.2.21...v0.2.22) (2026-11-06)
+
+
+### Bug Fixes
+
+* render task lists as bullets in comment preset ([d1500e9](https://github.com/califlower/markdown-to-adf/commit/d1500e9dbd46ce8fb4169a328ac8b0ed9b86bff1))
+
 ### [0.2.21](https://github.com/califlower/markdown-to-adf/compare/v0.2.20...v0.2.21) (2026-11-05)
 
 
